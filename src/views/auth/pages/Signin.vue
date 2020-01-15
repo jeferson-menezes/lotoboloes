@@ -1,59 +1,72 @@
 <template>
-  <mdb-container class="special-color">
-    <section class="my-5">
-      <h2 class="h1-responsive font-weight-bold text-center my-5">Contact us</h2>
-      <mdb-row>
-        <mdb-col lg="5" class="lg-0 mb-4">
-          <mdb-card>
-            <mdb-card-body>
-              <div class="form-header blue-gradient">
-                <h3 class="mt-2">
-                  <mdb-icon icon="envelope" />Write to us:
-                </h3>
-              </div>
-              <div class="md-form">
-                <mdb-input
-                  icon="user"
-                  label="Your name"
-                  iconClass="grey-text"
-                  type="text"
-                  id="form-name"
-                />
-              </div>
-              <div class="md-form">
-                <mdb-input
-                  icon="envelope"
-                  label="Your email"
-                  iconClass="grey-text"
-                  type="text"
-                  id="form-email"
-                />
-              </div>
-              <div class="md-form">
-                <mdb-input
-                  icon="tag"
-                  label="Subject"
-                  iconClass="grey-text"
-                  type="text"
-                  id="form-subject"
-                />
-              </div>
-              <div class="md-form">
-                <mdb-textarea
-                  icon="pencil"
-                  label="Icon Prefix"
-                  iconClass="grey-text"
-                  id="form-text"
-                />
-              </div>
-              <div class="text-center">
-                <mdb-btn class="blue-gradient">Submit</mdb-btn>
-              </div>
-            </mdb-card-body>
-          </mdb-card>
-        </mdb-col>
-      </mdb-row>
-    </section>
+  <mdb-container>
+    <div class="signin">
+      <section class="my-5">
+        <h2 class="h1-responsive text-center my-5">LOTO BOLÕES</h2>
+        <mdb-row>
+          <mdb-col lg="5" class="lg-0 mb-4 animated fadeInLeft">
+            <mdb-card>
+              <mdb-card-body>
+                <div class="form-header blue-gradient">
+                  <h3 class="mt-2">cadastrar</h3>
+                </div>
+                <div class="md-form">
+                  <mdb-input
+                    icon="user"
+                    label="Seu nome"
+                    iconClass="grey-text"
+                    type="text"
+                    id="form-name"
+                  />
+                </div>
+                <div class="md-form">
+                  <mdb-input
+                    label="Seu e-mail"
+                    iconClass="grey-text"
+                    type="text"
+                    icon="envelope"
+                    id="form-name"
+                  />
+                </div>
+                <div class="md-form">
+                  <mdb-input
+                    label="Sua senha"
+                    labelColor="gray"
+                    icon="lock"
+                    iconClass="grey-text"
+                    type="password"
+                  />
+                </div>
+                <div class="md-form">
+                  <mdb-input
+                    label="Repita a senha"
+                    labelColor="gray"
+                    icon="user-lock"
+                    iconClass="grey-text"
+                    type="password"
+                  />
+                </div>
+                <div class="text-center">
+                  <mdb-btn class="blue-gradient">Submit</mdb-btn>
+                  <hr class="hr-light" />
+                  <div class="text-center white-label">
+                    <a class="p-2 m-2">
+                      <mdb-icon fab icon="facebook-f" class="gray-text" />
+                      <small>cadastrar com facebook</small>
+                    </a>
+                    <br />
+                    <a class="p-2 m-2">
+                      <mdb-icon fab icon="envelope-open" class="gray-text" />
+                      <small>cadastrar com gmail</small>
+                    </a>
+                  </div>
+                </div>
+              </mdb-card-body>
+            </mdb-card>
+          </mdb-col>
+        </mdb-row>
+      </section>
+    </div>
   </mdb-container>
 </template>
 
@@ -63,11 +76,10 @@ import {
   mdbRow,
   mdbCol,
   mdbBtn,
-  mdbIcon,
   mdbInput,
-  mdbTextarea,
   mdbCard,
-  mdbCardBody
+  mdbCardBody,
+  mdbIcon
 } from 'mdbvue';
 
 export default {
@@ -77,11 +89,19 @@ export default {
     mdbRow,
     mdbCol,
     mdbBtn,
-    mdbIcon,
     mdbInput,
-    mdbTextarea,
     mdbCard,
-    mdbCardBody
+    mdbCardBody,
+    mdbIcon
   }
 };
 </script>
+<style>
+.signin {
+  background-image: url("../../../assets/images/undraw_treasure_of9i.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: right top;
+  height: calc(50vh);
+}
+</style>
