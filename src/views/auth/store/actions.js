@@ -8,3 +8,15 @@ export const ActionDoLogin = ({ commit }, payload) => {
     console.error(error);
   });
 };
+
+export const ActionDoSignin = ({ commit }, payload) => {
+  const { email, password } = payload;
+
+  console.log(email, password);
+
+  return auth.createUserWithEmailAndPassword(email, password).then(res => {
+    console.log(res);
+  }).catch(error => {
+    console.error(error);
+  });
+};
