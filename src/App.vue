@@ -8,9 +8,11 @@
         <mdb-nav-item href="#" icon="google-plus-g" waves-fixed>Features</mdb-nav-item>
         <mdb-nav-item href="#" icon="code-branch" waves-fixed>Pricing</mdb-nav-item>
       </mdb-navbar-nav>
-    </mdb-navbar> -->
+    </mdb-navbar>-->
     <!-- Navbar-->
     <!--Navbar-->
+    <quick-alert></quick-alert>
+
     <nav class="navbar navbar-expand-lg navbar-dark teal">
       <div class="container">
         <!-- Collapse button -->
@@ -48,13 +50,17 @@
       </div>
     </nav>
     <!--/.Navbar-->
-  <router-view></router-view>
+    <router-view></router-view>
   </div>
 </template>
 <script>
 // import { mdbNavbar, mdbNavItem, mdbNavbarNav, mdbNavbarBrand } from 'mdbvue';
+import QuickAlert from './components/shares/QuickAlert';
 
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    QuickAlert
+  }
 };
 </script>

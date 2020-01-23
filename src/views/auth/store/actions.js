@@ -12,11 +12,11 @@ export const ActionDoLogin = ({ commit }, payload) => {
 export const ActionDoSignin = ({ commit }, payload) => {
   const { email, password } = payload;
 
-  console.log(email, password);
+  return auth.createUserWithEmailAndPassword(email, password);
+};
 
-  return auth.createUserWithEmailAndPassword(email, password).then(res => {
-    console.log(res);
-  }).catch(error => {
-    console.error(error);
-  });
+export const ActionChangeName = async ({ commit }, name) => {
+  const user = await auth.currentUser;
+
+  return user.updateProfile({ displayName: name });
 };

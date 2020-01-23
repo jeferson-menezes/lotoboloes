@@ -21,7 +21,6 @@ const app = firebase
 export const firestore = app.firestore();
 export const auth = app.auth();
 
-
 // VUE_APP_API_KEY = "AIzaSyC5fJ0lSSYCWV3b5B1WWOHmnYFFNil-0iU"
 // VUE_APP_AUTO_DOMAIN = "loto-bolao.firebaseapp.com"
 // VUE_APP_DATABASE_URL = "https://loto-bolao.firebaseio.com"
@@ -30,4 +29,3 @@ export const auth = app.auth();
 // VUE_APP_MESSAGING_SENDER_ID = "323288982802"
 // VUE_APP_APP_ID = "1:323288982802:web:e13863ab42a5d1ccb6bfcb"
 // VUE_APP_MEASUREMENT_ID = "G-KS47BSSGS6"
-

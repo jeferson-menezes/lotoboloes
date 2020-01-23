@@ -50,7 +50,7 @@
                     />
                   </div>
                   <div class="text-center">
-                    <mdb-btn class="blue-gradient">Submit</mdb-btn>
+                    <mdb-btn type="submit" class="blue-gradient">Cadastrar</mdb-btn>
                     <hr class="hr-light" />
                     <div class="text-center white-label">
                       <a class="p-2 m-2">
@@ -87,6 +87,8 @@ import {
 } from 'mdbvue';
 import { mapActions } from 'vuex';
 import { Login } from '../../../model/Login';
+import { SENHAS_DIVERGENTES, CAMPOS_OBRIGATORIOS } from '../../../helper/msg';
+import { trataErro } from '../../../helper/error';
 
 export default {
   name: 'Signin',
@@ -109,24 +111,57 @@ export default {
     }
   }),
   methods: {
-    ...mapActions('auth', ['ActionDoSignin']),
+    ...mapActions('auth', ['ActionDoSignin', 'ActionChangeName']),
     async doSignin () {
-      if (this.password !== this.password2) {
-        console.error('Senhas diferentes');
+      if (!this.validForm()) {
+        this.$root.$emit('Notification::show', {
+          tipo: 'warning',
+          message: CAMPOS_OBRIGATORIOS
+        });
         return;
       }
 
-      const { email, password } = this.form;
+      if (!this.validPassword()) {
+        this.$root.$emit('Notification::show', {
+          tipo: 'warning',
+          message: SENHAS_DIVERGENTES
+        });
+        return;
+      }
+
+      const { email, password, name } = this.form;
 
       const login = new Login(email, password);
 
       try {
         const res = await this.ActionDoSignin(login);
 
-        console.log(res);
+        const { user } = res;
+
+        await this.ActionChangeName(name);
+
+        // direciona
+
+        console.log(user);
       } catch (error) {
-        console.error(error);
+        console.log(error);
+
+        const { code } = error;
+        this.$root.$emit('Notification::show', {
+          tipo: 'danger',
+          message: trataErro(code)
+        });
       }
+    },
+    validForm () {
+      if (!this.form.name || !this.form.email || !this.form.password) {
+        return false;
+      }
+      return true;
+    },
+    validPassword () {
+      if (this.form.password !== this.form.password2) return false;
+      return true;
     }
   }
 };
