@@ -63,6 +63,7 @@ import {
   mdbInput,
   mdbIcon
 } from 'mdbvue';
+import { trataErro } from '../../../helper/error';
 
 export default {
   name: 'Login',
@@ -86,8 +87,21 @@ export default {
   }),
   methods: {
     ...mapActions('auth', ['ActionDoLogin']),
-    submit () {
-      this.ActionDoLogin(this.form);
+    async submit () {
+      try {
+        await this.ActionDoLogin(this.form);
+
+        this.$router.push({ name: 'home' });
+      } catch (error) {
+        console.log('Error login ', error);
+
+        const { code } = error;
+
+        this.$root.$emit('Notification::show', {
+          tipo: 'danger',
+          message: trataErro(code)
+        });
+      }
     }
   }
 };

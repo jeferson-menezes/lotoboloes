@@ -1,10 +1,11 @@
 <template>
-  <mdb-container v-show="show" zindex-modal>
+  <mdb-container  class="fixed-top" v-show="show" zindex-modal>
     <mdb-alert
       class="zindex-modal"
       :color="tipo"
       dismiss
       enterAnimatrion="flipInX"
+      @closeAlert="show = false"
     >{{ message }}</mdb-alert>
   </mdb-container>
 </template>
@@ -19,7 +20,7 @@ export default {
     mdbContainer
   },
   data: () => ({
-    show: true,
+    show: false,
     message: '',
     tipo: 'danger'
   }),
