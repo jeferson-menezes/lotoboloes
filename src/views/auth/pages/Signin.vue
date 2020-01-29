@@ -111,7 +111,11 @@ export default {
     }
   }),
   methods: {
-    ...mapActions('auth', ['ActionDoSignin', 'ActionChangeName']),
+    ...mapActions('auth', [
+      'ActionDoSignin',
+      'ActionChangeName',
+      'ActionLoadSession'
+    ]),
     async doSignin () {
       if (!this.validForm()) {
         this.$root.$emit('Notification::show', {
@@ -140,7 +144,9 @@ export default {
 
         await this.ActionChangeName(name);
 
-        // direciona
+        await this.ActionLoadSession();
+
+        this.$router.push({ name: 'home' });
 
         console.log(user);
       } catch (error) {

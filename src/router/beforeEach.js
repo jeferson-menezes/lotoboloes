@@ -2,20 +2,25 @@ import store from '../store';
 
 export default async (to, from, next) => {
   document.title = `${to.meta.title} - Loto Bolão`;
+  console.log('To: ', to.name);
 
-  if (to.name !== 'login' && !store.getters['auth/hasToken']) {
-    try {
-      await store.dispatch('auth/ActionCheckToken');
-
-      next({ name: to.name });
-    } catch (error) {
-      next({ name: 'login' });
-    }
+  if (to.name === 'signin' && !store.getters['auth/hasUid']) {
+    next();
   } else {
-    if (to.name === 'login' && store.getters['auth/hasToken']) {
-      next({ name: 'home' });
+    if (to.name !== 'login' && !store.getters['auth/hasUid']) {
+      try {
+        await store.dispatch('auth/ActionCheckUid');
+
+        next({ name: to.name });
+      } catch (error) {
+        next({ name: 'login' });
+      }
     } else {
-      next();
+      if (to.name === 'login' && store.getters['auth/hasUid']) {
+        next({ name: 'home' });
+      } else {
+        next();
+      }
     }
   }
 };

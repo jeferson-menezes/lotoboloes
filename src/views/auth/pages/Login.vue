@@ -24,7 +24,18 @@
                       v-model="form.password"
                     />
                     <div class="text-center mt-4 black-text">
-                      <mdb-btn class="peach-gradient">Logar</mdb-btn>
+                      <mdb-btn class="peach-gradient" :disabled="loadind">
+                        <template v-if="loadind">
+                          <span
+                            class="spinner-border spinner-border-sm"
+                            role="status"
+                            aria-hidden="true"
+                          ></span> Aguarde...
+                        </template>
+                        <template v-else>
+                          <mdb-icon icon="sign-in-alt" class="mr-1" />Logar
+                        </template>
+                      </mdb-btn>
                       <hr class="hr-light" />
                       <div class="text-center d-flex justify-content-center white-label">
                         <a class="p-2 m-2">
@@ -37,6 +48,9 @@
                           <mdb-icon fab icon="instagram" class="gray-text" />
                         </a>
                       </div>
+                    </div>
+                    <div class="text-center mt-4 black-text">
+                      <a href="#" @click.prevent="toSignin()">Quero me cadastrar</a>
                     </div>
                   </form>
                 </mdb-card-body>
@@ -79,6 +93,7 @@ export default {
     mdbIcon
   },
   data: () => ({
+    loadind: false,
     form: {
       name: undefined,
       email: undefined,
@@ -88,6 +103,7 @@ export default {
   methods: {
     ...mapActions('auth', ['ActionDoLogin']),
     async submit () {
+      this.loadind = true;
       try {
         await this.ActionDoLogin(this.form);
 
@@ -97,11 +113,17 @@ export default {
 
         const { code } = error;
 
-        this.$root.$emit('Notification::show', {
-          tipo: 'danger',
-          message: trataErro(code)
+        trataErro(code).then(msg => {
+          this.$root.$emit('Notification::show', {
+            tipo: 'danger',
+            message: msg
+          });
         });
       }
+      this.loadind = false;
+    },
+    toSignin () {
+      this.$router.push({ name: 'signin' });
     }
   }
 };

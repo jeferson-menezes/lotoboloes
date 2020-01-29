@@ -2,9 +2,9 @@ import * as types from './mutation-types';
 import { auth } from '@/firebase';
 import * as local from '../storage';
 
-export const ActionDoLogin = ({ commit }, payload) => {
+export const ActionDoLogin = ({ dispatch }, payload) => {
   return auth.signInWithEmailAndPassword(payload.email, payload.password).then(res => {
-    commit(types.SET_USER, res.user);
+    dispatch('ActionRenovaSessao', res.user);
   });
 };
 
@@ -20,30 +20,36 @@ export const ActionChangeName = async ({ commit }, name) => {
   return user.updateProfile({ displayName: name });
 };
 
-export const ActionCheckToken = ({ dispatch, state }) => {
-  if (state.token) {
-    return Promise.resolve(state.token);
+export const ActionCheckUid = ({ dispatch, state }) => {
+  if (state.uid) {
+    return Promise.resolve(state.uid);
   }
 
-  const token = local.getLocalToken();
+  const uid = local.getLocalUid();
 
-  if (!token) {
+  if (!uid) {
     return Promise.reject(new Error('Token inválido'));
   };
 
   return dispatch('ActionLoadSession');
 };
 
-export const ActionLoadSession = async () => {
+export const ActionLoadSession = async ({ dispatch }) => {
   return new Promise(async (resolve, reject) => {
-    try {
-      const res = await auth.onAuthStateChanged();
+    const user = await auth.onAuthStateChanged();
 
-      console.log('User', res);
+    if (user.uid) {
+      dispatch('ActionRenovaSessao', user);
       resolve();
-    } catch (error) {
-      console.error(error);
-      reject(error);
+    } else {
+      // eslint-disable-next-line prefer-promise-reject-errors
+      reject('Usuário não esta logado');
     }
   });
+};
+
+export const ActionRenovaSessao = ({ commit }, user) => {
+  commit(types.SET_USER, user);
+  commit(types.SET_UID, user.uid);
+  local.setLocalUid(user.uid);
 };
