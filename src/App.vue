@@ -1,66 +1,42 @@
 <template>
   <div id="app">
-    <!--Navbar-->
-    <!-- <mdb-navbar position="top" dark color="primary" scrolling>
-      <mdb-navbar-brand href="#">Your Logo</mdb-navbar-brand>
-      <mdb-navbar-nav center>
-        <mdb-nav-item href="#" icon="code-branch" waves-fixed>Home</mdb-nav-item>
-        <mdb-nav-item href="#" icon="google-plus-g" waves-fixed>Features</mdb-nav-item>
-        <mdb-nav-item href="#" icon="code-branch" waves-fixed>Pricing</mdb-nav-item>
-      </mdb-navbar-nav>
-    </mdb-navbar>-->
-    <!-- Navbar-->
-    <!--Navbar-->
     <quick-alert></quick-alert>
 
-    <nav class="navbar navbar-expand-lg navbar-dark teal">
-      <div class="container">
-        <!-- Collapse button -->
-        <button
-          class="navbar-toggler float-right"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <!-- Collapsible content -->
-        <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-          <!-- Links -->
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
-            </li>
-          </ul>
-          <!-- Links -->
-        </div>
-        <!-- CTA -->
-      </div>
-    </nav>
-    <!--/.Navbar-->
+    <mdb-navbar position="top" dark color="success-color" class="darken-2" :toggler="false" v-if="isLogado()">
+      <mdb-navbar-nav class="nav-flex-icons" center>
+        <mdb-nav-item href="#" waves-fixed v-for="(item, index) in routerLinks" :key="index" :to="item.path" :icon="item.meta.icon">{{item.meta.title}}</mdb-nav-item>
+      </mdb-navbar-nav>
+    </mdb-navbar>
+
     <router-view></router-view>
   </div>
 </template>
 <script>
-// import { mdbNavbar, mdbNavItem, mdbNavbarNav, mdbNavbarBrand } from 'mdbvue';
+import store from './store';
+import { mdbNavbar, mdbNavItem, mdbNavbarNav } from 'mdbvue';
 import QuickAlert from './components/shares/QuickAlert';
+import {} from 'vuex';
 
 export default {
   name: 'App',
+  data: () => ({
+    toggle: false
+  }),
   components: {
-    QuickAlert
+    QuickAlert,
+    mdbNavbar,
+    mdbNavItem,
+    mdbNavbarNav
+  },
+  computed: {
+    routerLinks () {
+      return this.$router.options.routes.filter(r => r.name !== 'login');
+    }
+  },
+  methods: {
+    isLogado () {
+      return store.getters['auth/hasUid'];
+    }
   }
 };
 </script>
