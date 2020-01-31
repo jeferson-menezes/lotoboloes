@@ -8,7 +8,7 @@ export default [
   {
     path: '/signin',
     name: 'signin',
-    meta: { icon: 'mdi-view-grid', title: 'SignIn' },
+    meta: { icon: 'sign-in-alt', title: 'SignIn' },
     component: () => import(/* webpackChunkName: "signin" */ './pages/Signin.vue')
   }
 ];

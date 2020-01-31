@@ -4,7 +4,7 @@ import * as local from '../storage';
 
 export const ActionDoLogin = ({ dispatch }, payload) => {
   return auth.signInWithEmailAndPassword(payload.email, payload.password).then(res => {
-    dispatch('ActionRenovaSessao', res.user);
+    dispatch('ActionRenewSession', res.user);
   });
 };
 
@@ -36,20 +36,31 @@ export const ActionCheckUid = ({ dispatch, state }) => {
 
 export const ActionLoadSession = async ({ dispatch }) => {
   return new Promise(async (resolve, reject) => {
-    const user = await auth.onAuthStateChanged();
-
-    if (user.uid) {
-      dispatch('ActionRenovaSessao', user);
-      resolve();
-    } else {
-      // eslint-disable-next-line prefer-promise-reject-errors
-      reject('Usuário não esta logado');
-    }
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        dispatch('ActionRenewSession', user);
+        resolve();
+      } else {
+        reject(new Error('Usuário não esta logado'));
+      }
+    });
   });
 };
 
-export const ActionRenovaSessao = ({ commit }, user) => {
+export const ActionRenewSession = ({ commit }, user) => {
   commit(types.SET_USER, user);
   commit(types.SET_UID, user.uid);
   local.setLocalUid(user.uid);
+};
+
+export const ActionKillSession = ({ commit }) => {
+  commit(types.SET_USER, {});
+  commit(types.SET_UID, '');
+  local.deleteLocalUid();
+};
+
+export const ActionLogout = ({ dispatch }) => {
+  return auth.signOut().then(() => {
+    dispatch('ActionKillSession');
+  });
 };
