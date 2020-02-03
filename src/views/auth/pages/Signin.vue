@@ -2,9 +2,8 @@
   <mdb-container>
     <div class="signin">
       <section class="my-5">
-        <h2 class="h1-responsive text-center my-5">LOTO BOLÕES</h2>
         <mdb-row>
-          <mdb-col lg="5" class="lg-0 mb-4 animated fadeInLeft">
+          <mdb-col lg="5" md="6" sm="10" xs="12" class="lg-0 mb-4 animated fadeInLeft">
             <mdb-card>
               <mdb-card-body>
                 <form @submit.prevent="doSignin()">
@@ -67,6 +66,16 @@
                 </form>
               </mdb-card-body>
             </mdb-card>
+          </mdb-col>
+          <mdb-col xs="12" sm="12" md="6" class="text-right">
+            <blockquote class="blockquote bq-primary position-absolute">
+              <p class="bq-title">Warning notification</p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores quibusdam dignissimos itaque harum illo!
+                Quidem, corporis at quae tempore nisi impedit cupiditate perferendis nesciunt, ex dolores doloremque!
+                Sit, rem, in?
+              </p>
+            </blockquote>
           </mdb-col>
         </mdb-row>
       </section>
@@ -178,6 +187,6 @@ export default {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: right top;
-  height: calc(50vh);
+  height: calc(45vh);
 }
 </style>

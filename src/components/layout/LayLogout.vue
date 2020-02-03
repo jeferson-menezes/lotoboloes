@@ -7,7 +7,7 @@
 import { mdbNavItem } from 'mdbvue';
 import { mapActions } from 'vuex';
 export default {
-  name: 'Logout',
+  name: 'LayLogout',
   components: {
     mdbNavItem
   },

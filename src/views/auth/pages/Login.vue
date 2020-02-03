@@ -3,7 +3,7 @@
     <div class="classic-form-page login mt-5">
       <mdb-mask>
         <mdb-container>
-          <mdb-row>
+          <mdb-row class="justify-content-between">
             <mdb-col md="6" xl="5" class="mb-4 animated fadeInRight">
               <mdb-card id="classic-card">
                 <mdb-card-body class="z-depth-2">
@@ -56,6 +56,18 @@
                 </mdb-card-body>
               </mdb-card>
             </mdb-col>
+
+            <mdb-col xs="12" sm="12" md="6" class="text-right">
+              <blockquote class="blockquote bq-warning position-absolute">
+                <p class="bq-title">Warning notification</p>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores quibusdam dignissimos itaque harum illo!
+                  Quidem, corporis at quae tempore nisi impedit cupiditate perferendis nesciunt, ex dolores doloremque!
+                  Sit, rem, in?
+                </p>
+              </blockquote>
+            </mdb-col>
+
           </mdb-row>
         </mdb-container>
       </mdb-mask>
@@ -134,7 +146,10 @@ export default {
   background-image: url("../../../assets/images/undraw_sign_in_e6hj.svg");
   background-repeat: no-repeat;
   background-size: contain;
-  background-position: right center;
-  height: calc(50vh);
+  background-position: right top;
+  height: calc(35vh);
+}
+.blockquote{
+  bottom: 0;
 }
 </style>

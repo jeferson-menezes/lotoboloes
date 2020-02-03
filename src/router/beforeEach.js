@@ -5,6 +5,9 @@ export default async (to, from, next) => {
   console.log('To: ', to.name);
 
   if (to.name !== 'login' && !store.getters['auth/hasUid']) {
+    if (to.name === 'signin') {
+      next();
+    }
     try {
       await store.dispatch('auth/ActionCheckUid');
 
